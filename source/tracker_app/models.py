@@ -43,7 +43,7 @@ class Issue(models.Model):
     )
     description = models.TextField(
         null=True,
-        blank=False,
+        blank=True,
         verbose_name= 'Полное описание'
     )
     status = models.ForeignKey(
