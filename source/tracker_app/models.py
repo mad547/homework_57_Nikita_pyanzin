@@ -50,7 +50,14 @@ class Issue(models.Model):
         Status,
         on_delete=models.PROTECT,
         null=False,
+        verbose_name= 'Статус'
+    )
+    issue_type = models.ForeignKey(
+        Type,
+        on_delete=models.PROTECT,
+        null=False,
         verbose_name= 'Тип'
+
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
