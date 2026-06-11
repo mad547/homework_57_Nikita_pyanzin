@@ -1,0 +1,73 @@
+[
+{
+  "model": "tracker_app.type",
+  "pk": 1,
+  "fields": {
+    "name": "приоритетная"
+  }
+},
+{
+  "model": "tracker_app.type",
+  "pk": 2,
+  "fields": {
+    "name": "обычная"
+  }
+},
+{
+  "model": "tracker_app.status",
+  "pk": 1,
+  "fields": {
+    "name": "в процессе"
+  }
+},
+{
+  "model": "tracker_app.status",
+  "pk": 2,
+  "fields": {
+    "name": "выполнено"
+  }
+},
+{
+  "model": "tracker_app.status",
+  "pk": 3,
+  "fields": {
+    "name": "новая"
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 1,
+  "fields": {
+    "summary": "заплатить за учебу",
+    "description": "заплатить за учебу до дедлайна",
+    "status": 2,
+    "issue_type": 1,
+    "created_at": "2026-06-11T09:25:55.457Z",
+    "updated_at": "2026-06-11T09:25:55.458Z"
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 2,
+  "fields": {
+    "summary": "придумать еду",
+    "description": "придумать что готовить на ужин",
+    "status": 3,
+    "issue_type": 2,
+    "created_at": "2026-06-11T09:27:46.956Z",
+    "updated_at": "2026-06-11T09:27:46.956Z"
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 3,
+  "fields": {
+    "summary": "доделать дз",
+    "description": "успеть выполнить все пункты дз",
+    "status": 1,
+    "issue_type": 1,
+    "created_at": "2026-06-11T09:28:32.210Z",
+    "updated_at": "2026-06-11T09:28:32.210Z"
+  }
+}
+]
