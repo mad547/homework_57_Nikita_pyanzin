@@ -19,9 +19,8 @@ def rollback_transfer(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tracker_app', '0004_issue_type_old_remove_issue_issue_type_and_more'),
+        ('tracker_app', '0004_issue_issue_type_old_remove_issue_issue_type_and_more'),
     ]
 
     operations = [

@@ -6,21 +6,23 @@
     <div class="card-body">
         <p>
             <strong>Тип:</strong>
-            <span class="badge bg-secondary">{{ issue.issue_type }}</span>
+            {% for t in issue.issue_type.all %}
+                <span class="badge bg-secondary">{{ t }}</span>
+            {% empty %}
+                <span class="text-muted">Не указан</span>
+            {% endfor %}
         </p>
-        <p>
-            <strong>Статус:</strong>
-            <span class="badge bg-primary">{{ issue.status }}</span>
-        </p>
+        <p><strong>Статус:</strong> <span class="badge bg-primary">{{ issue.status }}</span></p>
         <p><strong>Создано:</strong> {{ issue.created_at|date:'d.m.Y H:i' }}</p>
         <p><strong>Обновлено:</strong> {{ issue.updated_at|date:'d.m.Y H:i' }}</p>
+        <hr>
         <p style="white-space: pre-wrap;">{{ issue.description|default:"Описание не указано" }}</p>
     </div>
     <div class="card-footer d-flex justify-content-between py-3">
-        <a href="{% url 'issue_list' %}" class="btn btn-sm btn-outline-secondary">Назад</a>
+        <a href="{% url 'issue_list' %}" class="btn btn-outline-secondary btn-sm">← Назад</a>
         <div>
-            <a href="{% url 'issue_update' issue.pk %}" class="btn btn-sm btn-primary me-2">Изменить</a>
-            <a href="{% url 'issue_delete' issue.pk %}" class="btn btn-sm btn-danger">Удалить</a>
+            <a href="{% url 'issue_update' issue.pk %}" class="btn btn-primary btn-sm me-2">Изменить</a>
+            <a href="{% url 'issue_delete' issue.pk %}" class="btn btn-danger btn-sm">Удалить</a>
         </div>
     </div>
 </div>
