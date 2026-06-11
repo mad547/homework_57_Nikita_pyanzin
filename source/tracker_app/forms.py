@@ -5,7 +5,7 @@ class IssueForm(ModelForm):
     issue_type = ModelMultipleChoiceField(
         queryset = Type.objects.all(),
         required = False,
-        label='Тип'
+        label='Тип',
         widget=CheckboxSelectMultiple()
     )
     class Meta:
