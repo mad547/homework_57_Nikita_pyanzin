@@ -7,8 +7,8 @@ from tracker_app.forms import IssueForm
 # Create your views here.
 class IssueListView(View):
     def get(self, request):
-        issue = Issue.objects.all()
-        return render(request, 'tracker_app/issue_list.html', {'issue': issue})
+        issues = Issue.objects.all()
+        return render(request, 'tracker_app/issue_list.html', {'issue': issues})
 
 
 class IssueDetailView(View):

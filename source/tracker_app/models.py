@@ -42,7 +42,7 @@ class Issue(models.Model):
         verbose_name= 'Краткое описание'
     )
     description = models.TextField(
-        null=False,
+        null=True,
         blank=False,
         verbose_name= 'Полное описание'
     )

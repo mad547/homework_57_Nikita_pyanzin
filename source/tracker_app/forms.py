@@ -10,7 +10,7 @@ class IssueForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Краткое описание'
             }),
-            'descriptions': widgets.Textarea(attrs={
+            'description': widgets.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
                 'placeholder': 'Полное описание'

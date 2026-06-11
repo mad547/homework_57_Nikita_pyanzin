@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4" xmlns="http://www.w3.org/1999/html">
+    <h1 class="mb-0">Задачи</h1>
+    <a href="{% url 'issue_create' %}" class="btn btn-primary">Добавить задачу</a>
+</div>
+<div class="card shadow-sm">
+    <table class="table table-hover mb-0">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Описание</th>
+            <th>Тип</th>
+            <th>Статус</th>
+            <th>Создано</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td>{{ issue.pk }}</td>
+                <td>
+                    <a href="{% url 'issue_detail' issue.pk %}" class="text-decoration-none">
+                        {{ issue.summary }}
+                    </a>
+                </td>
+                <td><span class="badge bg-secondary">{{ issue.issue_type }}</span></td>
+                <td><span class="badge bg-primary">{{ issue.status }}</span></td>
+                <td class="text-muted small">{{ issue.created_at|date:'d.m.Y H:i' }}</td>
+                <td>
+                    <a href="{% url 'issue_update' issue.pk %}"
+                        class="btn btn-sm btn-outline-secondary me-1">Изменить</a>
+                    <a href="{% url 'issue_delete' issue.pk %}"
+                        class="btn btn-sm btn-outline-danger">Удалить</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-muted text-center py-3">Задач пока нет</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
