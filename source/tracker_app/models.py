@@ -55,13 +55,6 @@ class Issue(models.Model):
         verbose_name= 'Статус'
     )
 
-    issue_type_old = models.ForeignKey(
-        Type,
-        on_delete=models.PROTECT,
-        null=False,
-        verbose_name= 'Тип'
-    )
-
     issue_type = models.ManyToManyField(
         Type,
         related_name='issues',
