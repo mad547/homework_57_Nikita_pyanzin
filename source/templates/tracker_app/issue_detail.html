@@ -6,7 +6,11 @@
     <div class="card-body">
         <p>
             <strong>Тип:</strong>
-            <span class="badge bg-secondary">{{ issue.issue_type }}</span>
+            {% for t in issue.issue_type.all %}
+                <span class="badge bg-secondary">{{ t }}</span>
+            {% empty %}
+                <span class="text-muted">Не указан</span>
+            {% endfor %}
         </p>
         <p>
             <strong>Статус:</strong>
@@ -14,6 +18,7 @@
         </p>
         <p><strong>Создано:</strong> {{ issue.created_at|date:'d.m.Y H:i' }}</p>
         <p><strong>Обновлено:</strong> {{ issue.updated_at|date:'d.m.Y H:i' }}</p>
+        <p><strong>Описание:</strong></p>
         <p style="white-space: pre-wrap;">{{ issue.description|default:"Описание не указано" }}</p>
     </div>
     <div class="card-footer d-flex justify-content-between py-3">

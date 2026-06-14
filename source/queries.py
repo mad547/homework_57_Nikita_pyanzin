@@ -13,7 +13,7 @@ for issue in closed_last_month:
     print(f'   {issue.summary} | {issue.status.name} | {issue.updated_at}')
 
 issues_by_status_and_type = Issue.objects.filter(
-    Q(status__name='Новая') | Q(status__name='В процессе')б
+    Q(status__name='Новая') | Q(status__name='В процессе'),
     Q(issue_type__name='Задача') | Q(issue_type__name='Ошибка')
 ).distinct()
 print('\n2. Задачи с нужными статусами и типами:')
@@ -39,9 +39,9 @@ for issue in issues_values:
 
 
 same = Issue.objects.filter(description=F('summary'))
-    print('\n Краткое = полному:')
-    for issue in same:
-        print(f'   {issue.summary}')
+print('\n Краткое = полному:')
+for issue in same:
+    print(f'   {issue.summary}')
 
 
 count_by_type = Issue.objects.values(

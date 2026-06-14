@@ -26,9 +26,6 @@ class IssueForm(ModelForm):
             'status': widgets.Select(attrs={
                 'class': 'form-control',
             }),
-            'issue_type': widgets.Select(attrs={
-                'class': 'form-control',
-            }),
         }
 
     def clean_summary(self):
