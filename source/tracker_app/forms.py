@@ -1,15 +1,13 @@
-from cProfile import label
-
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, widgets, ModelMultipleChoiceField, CheckboxSelectMultiple
 from tracker_app.models import Issue, Type
 
 class IssueForm(ModelForm):
-    issue_type = forms.ModelChoiceField(
+    issue_type = ModelMultipleChoiceField(
         queryset=Type.objects.all(),
         required=False,
         label='Тип',
-        widjet=CheckboxSelectMultiple()
+        widget=CheckboxSelectMultiple()
     )
 
     class Meta:

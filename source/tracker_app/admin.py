@@ -4,8 +4,8 @@ from tracker_app.models import Type, Status, Issue
 
 # Register your models here.
 class IssueAdmin(admin.ModelAdmin):
-    list_display = ['id', 'summary', 'issue_type', 'status', 'created_at',]
-    list_filter = ['issue_type', 'status',]
+    list_display = ['id', 'summary', 'status', 'created_at',]
+    list_filter = ['status',]
     search_fields = ['summary']
 
 
