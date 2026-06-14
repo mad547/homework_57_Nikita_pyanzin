@@ -3,71 +3,112 @@
   "model": "tracker_app.type",
   "pk": 1,
   "fields": {
-    "name": "приоритетная"
+    "name": "Задача"
   }
 },
 {
   "model": "tracker_app.type",
   "pk": 2,
   "fields": {
-    "name": "обычная"
+    "name": "Ошибка"
+  }
+},
+{
+  "model": "tracker_app.type",
+  "pk": 3,
+  "fields": {
+    "name": "Улучшение"
+  }
+},
+{
+  "model": "tracker_app.type",
+  "pk": 4,
+  "fields": {
+    "name": "Важное"
   }
 },
 {
   "model": "tracker_app.status",
   "pk": 1,
   "fields": {
-    "name": "в процессе"
+    "name": "Новая"
   }
 },
 {
   "model": "tracker_app.status",
   "pk": 2,
   "fields": {
-    "name": "выполнено"
+    "name": "В процессе"
   }
 },
 {
   "model": "tracker_app.status",
   "pk": 3,
   "fields": {
-    "name": "новая"
+    "name": "Выполнено"
+  }
+},
+{
+  "model": "tracker_app.status",
+  "pk": 4,
+  "fields": {
+    "name": "Провалено"
   }
 },
 {
   "model": "tracker_app.issue",
   "pk": 1,
   "fields": {
-    "summary": "заплатить за учебу",
-    "description": "заплатить за учебу до дедлайна",
-    "status": 2,
-    "issue_type": 1,
-    "created_at": "2026-06-11T09:25:55.457Z",
-    "updated_at": "2026-06-11T09:25:55.458Z"
-  }
-},
-{
-  "model": "tracker_app.issue",
-  "pk": 2,
-  "fields": {
-    "summary": "придумать еду",
-    "description": "придумать что готовить на ужин",
+    "summary": "помыть машину",
+    "description": "сьездить на мойку помыть машину и поставить новую вонбчку",
     "status": 3,
-    "issue_type": 2,
-    "created_at": "2026-06-11T09:27:46.956Z",
-    "updated_at": "2026-06-11T09:27:46.956Z"
+    "created_at": "2026-06-14T19:53:26.378Z",
+    "updated_at": "2026-06-14T19:53:26.378Z",
+    "issue_type": [
+      1
+    ]
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 2,
+  "fields": {
+    "summary": "проверить домашку",
+    "description": "проверить домашнее задание на наличие ошибок",
+    "status": 2,
+    "created_at": "2026-06-14T20:01:41.127Z",
+    "updated_at": "2026-06-14T20:01:41.127Z",
+    "issue_type": [
+      3
+    ]
   }
 },
 {
   "model": "tracker_app.issue",
   "pk": 3,
   "fields": {
-    "summary": "доделать дз",
-    "description": "успеть выполнить все пункты дз",
-    "status": 1,
-    "issue_type": 1,
-    "created_at": "2026-06-11T09:28:32.210Z",
-    "updated_at": "2026-06-11T09:28:32.210Z"
+    "summary": "полить огород",
+    "description": "полить огород и пересадить перец",
+    "status": 3,
+    "created_at": "2026-06-14T20:02:26.006Z",
+    "updated_at": "2026-06-14T20:02:26.006Z",
+    "issue_type": [
+      1
+    ]
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 4,
+  "fields": {
+    "summary": "подготовиться  к рабочему дню",
+    "description": "выспаться",
+    "status": 4,
+    "created_at": "2026-06-14T20:04:42.940Z",
+    "updated_at": "2026-06-14T20:04:42.940Z",
+    "issue_type": [
+      4
+    ]
   }
 }
 ]
