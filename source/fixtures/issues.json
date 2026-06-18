@@ -56,12 +56,43 @@
   }
 },
 {
+  "model": "tracker_app.project",
+  "pk": 1,
+  "fields": {
+    "name": "Тестовый проект",
+    "description": "Проект для существуюших задач",
+    "start_date": "2026-06-18",
+    "end_date": null
+  }
+},
+{
+  "model": "tracker_app.project",
+  "pk": 2,
+  "fields": {
+    "name": "учеба",
+    "description": "научиться программировать с нуля",
+    "start_date": "2025-11-17",
+    "end_date": null
+  }
+},
+{
+  "model": "tracker_app.project",
+  "pk": 3,
+  "fields": {
+    "name": "изучить топливные системы",
+    "description": "изучить принцып работы тнвд  систем впрыска дизельных авто",
+    "start_date": "2026-06-19",
+    "end_date": null
+  }
+},
+{
   "model": "tracker_app.issue",
   "pk": 1,
   "fields": {
     "summary": "помыть машину",
     "description": "сьездить на мойку помыть машину и поставить новую вонбчку",
     "status": 3,
+    "project": 1,
     "created_at": "2026-06-14T19:53:26.378Z",
     "updated_at": "2026-06-14T19:53:26.378Z",
     "issue_type": [
@@ -76,6 +107,7 @@
     "summary": "проверить домашку",
     "description": "проверить домашнее задание на наличие ошибок",
     "status": 2,
+    "project": 1,
     "created_at": "2026-06-14T20:01:41.127Z",
     "updated_at": "2026-06-14T20:01:41.127Z",
     "issue_type": [
@@ -90,6 +122,7 @@
     "summary": "полить огород",
     "description": "полить огород и пересадить перец",
     "status": 3,
+    "project": 1,
     "created_at": "2026-06-14T20:02:26.006Z",
     "updated_at": "2026-06-14T20:02:26.006Z",
     "issue_type": [
@@ -104,10 +137,56 @@
     "summary": "подготовиться  к рабочему дню",
     "description": "выспаться",
     "status": 4,
+    "project": 1,
     "created_at": "2026-06-14T20:04:42.940Z",
     "updated_at": "2026-06-14T20:04:42.940Z",
     "issue_type": [
       4
+    ]
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 5,
+  "fields": {
+    "summary": "сделать домашнее задание",
+    "description": "успеть выполнить домашнее задание до дедлайна",
+    "status": 2,
+    "project": 2,
+    "created_at": "2026-06-18T18:09:04.908Z",
+    "updated_at": "2026-06-18T18:09:04.908Z",
+    "issue_type": [
+      1
+    ]
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 6,
+  "fields": {
+    "summary": "заработать",
+    "description": "заработать денег для оплаты",
+    "status": 3,
+    "project": 2,
+    "created_at": "2026-06-18T18:14:57.394Z",
+    "updated_at": "2026-06-18T18:14:57.394Z",
+    "issue_type": [
+      4
+    ]
+  }
+},
+{
+  "model": "tracker_app.issue",
+  "pk": 7,
+  "fields": {
+    "summary": "изучить форсунку",
+    "description": "изучить принып работы форсунки для успешного ремонта",
+    "status": 3,
+    "project": 3,
+    "created_at": "2026-06-18T18:18:59.451Z",
+    "updated_at": "2026-06-18T18:18:59.451Z",
+    "issue_type": [
+      1
     ]
   }
 }
