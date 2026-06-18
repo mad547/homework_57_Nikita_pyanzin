@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, FormView
 
-
 from tracker_app.models import Issue
 from tracker_app.forms import IssueForm
 
