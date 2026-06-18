@@ -1,12 +1,11 @@
-from tracker_app.vievs.issue_views import (
+from tracker_app.views.issue_views import (
 IssueListView,
 IssueDetailView,
-IssueCreateView,
 IssueUpdateView,
 IssueDeleteView,
 )
 
-from tracker_app.vievs.project_views import (
+from tracker_app.views.project_views import (
 ProjectListView,
 ProjectDetailView,
 ProjectCreateView,
@@ -18,7 +17,6 @@ ProjectIssueCreateView,
 __all__ = [
     'IssueListView',
     'IssueDetailView',
-    'IssueCreateView',
     'IssueUpdateView',
     'IssueDeleteView',
     'ProjectListView',

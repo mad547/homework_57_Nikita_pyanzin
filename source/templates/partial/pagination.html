@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center align-items-center gap-2 my-4">
+    {% if page_obj.has_previous %}
+        <a href="?{% if search %}search={{ search }}&{% endif %}page=1"
+           class="btn-tracker-outline">В начало</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}page={{ page_obj.previous_page_number }}"
+           class="btn-tracker-outline">Назад</a>
+    {% endif %}
+
+    <span class="text-muted">
+        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?{% if search %}search={{ search }}&{% endif %}page={{ page_obj.next_page_number }}"
+           class="btn-tracker-outline">Далее</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}page={{ page_obj.paginator.num_pages }}"
+           class="btn-tracker-outline">В конец</a>
+    {% endif %}
+</div>

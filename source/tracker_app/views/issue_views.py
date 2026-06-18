@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, FormView
 
@@ -24,18 +23,6 @@ class IssueDetailView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['issue'] = get_object_or_404(Issue, pk=self.kwargs.get('pk'))
         return context
-
-
-class IssueCreateView(FormView):
-    template_name = 'tracker_app/issue_create.html'
-    form_class = IssueForm
-    success_url = reverse_lazy('issue_list')
-
-    def form_valid(self, form):
-        types = form.cleaned_data.pop('issue_type')
-        issue = form.save()
-        issue.issue_type.set(types)
-        return super().form_valid(form)
 
 
 class IssueUpdateView(FormView):

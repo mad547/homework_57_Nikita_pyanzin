@@ -1,0 +1,21 @@
+<div class="modal fade" id="project-{{ project.pk }}-Modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Удаление проекта</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены что хотите удалить проект:</p>
+                <p class="fw-bold">{{ project.name }}</p>
+                <form action="{% url 'project_delete' project.pk %}" id="delete-form-{{ project.pk }}" method="POST">
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="submit" form="delete-form-{{ project.pk }}" class="btn btn-danger">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
