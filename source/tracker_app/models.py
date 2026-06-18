@@ -100,8 +100,7 @@ class Issue(models.Model):
    project = models.ForeignKey(
        Project,
        on_delete=models.CASCADE,
-       null=True,
-       blank=True,
+       null=False,
        verbose_name='Проект'
    )
 
