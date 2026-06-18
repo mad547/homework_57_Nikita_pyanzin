@@ -104,6 +104,11 @@ class Issue(models.Model):
        verbose_name='Проект'
    )
 
+   is_deleted = models.BooleanField(
+       default=False,
+       verbose_name='Удалено'
+   )
+
    created_at = models.DateTimeField(
        auto_now_add=True,
        verbose_name='Время создания'
