@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card shadow-sm my-4">
-    <div class="card-header fs-4 py-3">{{ issue.summary }}</div>
-    <div class="card-body">
+<div class="card-tracker my-4">
+    <div class="card-tracker-header">{{ issue.summary }}</div>
+    <div class="p-4">
         <p>
             <strong>Тип:</strong>
             {% for t in issue.issue_type.all %}
-                <span class="badge bg-secondary">{{ t }}</span>
+                <span class="badge-type">{{ t }}</span>
             {% empty %}
                 <span class="text-muted">Не указан</span>
             {% endfor %}
         </p>
         <p>
             <strong>Статус:</strong>
-            <span class="badge bg-primary">{{ issue.status }}</span>
+            <span class="badge-status">{{ issue.status }}</span>
         </p>
         <p><strong>Создано:</strong> {{ issue.created_at|date:'d.m.Y H:i' }}</p>
         <p><strong>Обновлено:</strong> {{ issue.updated_at|date:'d.m.Y H:i' }}</p>
         <p><strong>Описание:</strong></p>
         <p style="white-space: pre-wrap;">{{ issue.description|default:"Описание не указано" }}</p>
     </div>
-    <div class="card-footer d-flex justify-content-between py-3">
-        <a href="{% url 'issue_list' %}" class="btn btn-sm btn-outline-secondary">Назад</a>
+    <div class="card-tracker-footer d-flex justify-content-between">
+        <a href="{% url 'issue_list' %}" class="btn-tracker-outline">Назад</a>
         <div>
-            <a href="{% url 'issue_update' issue.pk %}" class="btn btn-sm btn-primary me-2">Изменить</a>
-            <a href="{% url 'issue_delete' issue.pk %}" class="btn btn-sm btn-danger">Удалить</a>
+            <a href="{% url 'issue_update' issue.pk %}" class="btn-tracker me-2">Изменить</a>
+            <a href="{% url 'issue_delete' issue.pk %}" class="btn-tracker-danger">Удалить</a>
         </div>
     </div>
 </div>

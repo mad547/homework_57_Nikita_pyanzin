@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card shadow-sm my-4" style="max-width: 500px; margin: auto;">
-    <div class="card-header fs-4 text-center py-3 text-danger">Удаление задачи</div>
-    <div class="card-body text-center">
+<div class="card-tracker my-4" style="max-width: 500px; margin: auto;">
+    <div class="card-tracker-header text-center text-danger">Удаление задачи</div>
+    <div class="p-4 text-center">
         <p class="fs-5">Вы уверены что хотите удалить задачу?</p>
         <p class="fw-bold fs-4">{{ issue.summary }}</p>
     </div>
-    <div class="card-footer d-flex justify-content-between py-3">
-        <a href="{% url 'issue_detail' issue.pk %}" class="btn btn-sm btn-outline-secondary">Отмена</a>
+    <div class="card-tracker-footer d-flex justify-content-between">
+        <a href="{% url 'issue_detail' issue.pk %}" class="btn-tracker-outline">Отмена</a>
         <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+            <button type="submit" class="btn-tracker-danger">Удалить</button>
         </form>
     </div>
 </div>

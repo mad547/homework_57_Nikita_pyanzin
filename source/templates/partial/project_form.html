@@ -1,7 +1,7 @@
 {% csrf_token %}
 
 {% for error in form.non_field_errors %}
-<div class="error-tracker">{{ error }}</div>
+    <div class="error-tracker">{{ error }}</div>
 {% endfor %}
 
 {% for field in form %}

@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card shadow-sm my-4" style="max-width: 650px; margin: auto;">
-    <div class="card-header fs-4 text-center py-3">Редактировать задачу</div>
-    <div class="card-body">
+<div class="card-tracker my-4" style="max-width: 650px; margin: auto;">
+    <div class="card-tracker-header text-center">Редактировать задачу</div>
+    <div class="p-4">
         <form id="issue-form" method="POST" action="">
             {% include 'partial/issue_form.html' %}
         </form>
     </div>
-    <div class="card-footer d-flex justify-content-between py-3">
-        <a href="{% url 'issue_detail' issue.pk %}" class="btn btn-sm btn-outline-secondary">Отмена</a>
-        <button type="submit" form="issue-form" class="btn btn-sm btn-primary">Сохранить</button>
+    <div class="card-tracker-footer d-flex justify-content-between">
+        <a href="{% url 'issue_detail' issue.pk %}" class="btn-tracker-outline">Отмена</a>
+        <button type="submit" form="issue-form" class="btn-tracker">Сохранить</button>
     </div>
 </div>
 {% endblock %}
