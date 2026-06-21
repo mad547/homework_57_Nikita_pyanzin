@@ -1,6 +1,5 @@
-from django.shortcuts import redirect, get_object_or_404
-from django.views import View
-from django.views.generic import TemplateView, FormView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, DetailView, UpdateView, DeleteView
 
 from tracker_app.models import Issue
 from tracker_app.forms import IssueForm
@@ -12,49 +11,46 @@ class IssueListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['issues'] = Issue.objects.all()
+        context['issues'] = Issue.objects.filter(is_deleted=False)
         return context
 
 
-class IssueDetailView(TemplateView):
+class IssueDetailView(DetailView):
     template_name = 'tracker_app/issue_detail.html'
+    context_object_name = 'issue'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['issue'] = get_object_or_404(Issue, pk=self.kwargs.get('pk'))
-        return context
+    def get_queryset(self):
+        return Issue.objects.filter(is_deleted=False)
 
 
-class IssueUpdateView(FormView):
+class IssueUpdateView(UpdateView):
     template_name = 'tracker_app/issue_update.html'
     form_class = IssueForm
+    context_object_name = 'issue'
 
-    def dispatch(self, request, *args, **kwargs):
-        self.issue = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_object(self):
-        return get_object_or_404(Issue, pk=self.kwargs.get('pk'))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['issue'] = self.issue
-        return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.issue
-        return kwargs
+    def get_queryset(self):
+        return Issue.objects.filter(is_deleted=False)
 
     def form_valid(self, form):
-        types = form.cleaned_data.pop('issue_type')
-        issue = form.save()
-        issue.issue_type.set(types)
-        return redirect('issue_detail', pk=issue.pk)
+        issue = form.save(commit=False)
+        issue.save()
+        form.save_m2m()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('issue_detail', kwargs={'pk': self.object.pk})
 
 
-class IssueDeleteView(View):
-    def post(self, request, *args, **kwargs):
-        issue = get_object_or_404(Issue, pk=self.kwargs.get('pk'))
-        issue.delete()
-        return redirect('issue_list')
+class IssueDeleteView(DeleteView):
+    template_name = 'tracker_app/issue_delete.html'
+    context_object_name = 'issue'
+    success_url = reverse_lazy('project_list')
+
+    def get_queryset(self):
+        return Issue.objects.filter(is_deleted=False)
+
+    def form_valid(self, form):
+        issue = self.get_object()
+        issue.is_deleted = True
+        issue.save()
+        return super(DeleteView, self).form_valid(form)
