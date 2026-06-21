@@ -1,17 +1,17 @@
 from tracker_app.views.issue_views import (
-IssueListView,
-IssueDetailView,
-IssueUpdateView,
-IssueDeleteView,
+    IssueListView,
+    IssueDetailView,
+    IssueUpdateView,
+    IssueDeleteView,
 )
 
 from tracker_app.views.project_views import (
-ProjectListView,
-ProjectDetailView,
-ProjectCreateView,
-ProjectUpdateView,
-ProjectDeleteView,
-ProjectIssueCreateView,
+    ProjectListView,
+    ProjectDetailView,
+    ProjectCreateView,
+    ProjectUpdateView,
+    ProjectDeleteView,
+    ProjectIssueCreateView,
 )
 
 __all__ = [
