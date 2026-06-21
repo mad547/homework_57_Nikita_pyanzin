@@ -9,7 +9,7 @@
         </form>
     </div>
     <div class="card-tracker-footer d-flex justify-content-between">
-        <a href="{% url 'issue_list' %}" class="btn-tracker-outline">Отмена</a>
+        <a href="{% url 'project_detail' project.pk %}" class="btn-tracker-outline">Отмена</a>
         <button type="submit" form="issue-form" class="btn-tracker">Создать</button>
     </div>
 </div>
