@@ -40,7 +40,7 @@ class ProjectDetailView(TemplateView):
         context = super().get_context_data(**kwargs)
         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
         context['project'] = project
-        context['issues'] = project.issue_set.all()
+        context['issues'] = project.issue_set.filter(is_deleted=False)
         return context
 
 
@@ -101,9 +101,8 @@ class ProjectIssueCreateView(FormView):
         return context
 
     def form_valid(self, form):
-        types = form.cleaned_data.pop('issue_type')
         issue = form.save(commit=False)
         issue.project = self.project
         issue.save()
-        issue.issue_type.set(types)
+        form.save_m2m()
         return redirect('project_detail', pk=self.project.pk)
