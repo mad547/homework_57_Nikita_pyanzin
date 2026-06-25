@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
@@ -44,7 +45,7 @@ class ProjectDetailView(TemplateView):
         return context
 
 
-class ProjectCreateView(FormView):
+class ProjectCreateView(LoginRequiredMixin , FormView):
     template_name = 'tracker_app/project_create.html'
     form_class = ProjectForm
     success_url = reverse_lazy('project_list')
@@ -54,7 +55,7 @@ class ProjectCreateView(FormView):
         return super().form_valid(form)
 
 
-class ProjectUpdateView(FormView):
+class ProjectUpdateView(LoginRequiredMixin, FormView):
     template_name = 'tracker_app/project_update.html'
     form_class = ProjectForm
 
@@ -80,14 +81,14 @@ class ProjectUpdateView(FormView):
         return redirect('project_detail', pk=project.pk)
 
 
-class ProjectDeleteView(View):
+class ProjectDeleteView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
         project.delete()
         return redirect('project_list')
 
 
-class ProjectIssueCreateView(FormView):
+class ProjectIssueCreateView(LoginRequiredMixin, FormView):
     template_name = 'tracker_app/issue_create.html'
     form_class = IssueInProjectForm
 
