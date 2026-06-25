@@ -19,7 +19,7 @@
         <p><strong>Создано:</strong> {{ issue.created_at|date:'d.m.Y H:i' }}</p>
         <p><strong>Обновлено:</strong> {{ issue.updated_at|date:'d.m.Y H:i' }}</p>
         <p><strong>Описание:</strong></p>
-        <p style="white-space: pre-wrap;">{{ issue.description|default:"Описание не указано" }}</p>
+        <p class="text-pre">{{ issue.description|default:"Описание не указано" }}</p>
     </div>
     <div class="card-tracker-footer d-flex justify-content-between">
         <a href="{% url 'issue_list' %}" class="btn-tracker-outline">Назад</a>

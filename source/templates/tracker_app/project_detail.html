@@ -8,7 +8,7 @@
         <p><strong>Дата окончания:</strong> {{ project.end_date|date:'d.m.Y'|default:'—' }}</p>
         <hr>
         <p><strong>Описание:</strong></p>
-        <p style="white-space: pre-wrap;">{{ project.description|default:"Описание не указано" }}</p>
+        <p class="text-pre">{{ project.description|default:"Описание не указано" }}</p>
     </div>
     <div class="card-tracker-footer d-flex justify-content-between">
         <a href="{% url 'project_list' %}" class="btn-tracker-outline">Назад</a>

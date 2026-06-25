@@ -192,9 +192,14 @@ body {
 
 .delete-card {
     max-width: 500px;
+    margin: auto;
 }
 
 .detail-card {
     max-width: 900px;
     margin: auto;
+}
+
+.text-pre {
+    white-space: pre-wrap;
 }
