@@ -82,6 +82,10 @@ class ProjectUpdateView(LoginRequiredMixin, FormView):
 
 
 class ProjectDeleteView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
+        return redirect('project_detail', pk=project.pk)
+
     def post(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
         project.delete()
