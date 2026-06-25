@@ -179,3 +179,22 @@ body {
     background: white;
     padding: 10px;
 }
+
+.login-card {
+    max-width: 400px;
+    margin: auto;
+}
+
+.form-card {
+    max-width: 600px;
+    margin: auto;
+}
+
+.delete-card {
+    max-width: 500px;
+}
+
+.detail-card {
+    max-width: 900px;
+    margin: auto;
+}
