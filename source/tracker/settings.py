@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'tracker_app',
     'accounts',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
