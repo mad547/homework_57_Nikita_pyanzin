@@ -1,0 +1,22 @@
+{% load django_bootstrap5 %}
+
+<div class="card-tracker form-card my-4 {{ extra_classes }}">
+    <div class="card-tracker-header text-center">{{ form_title }}</div>
+    <div class="p-4">
+        <form action="" id="main-form" method="POST">
+            {% csrf_token %}
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+            {% bootstrap_form form layout="floating" %}
+        </form>
+    </div>
+    <div class="card-tracker-footer d-flex justify-content-between">
+        {% if back_url %}
+            <a href="{{ back_url }}" class="btn-tracker-outline">{{ back_txt|default:"Назад" }}</a>
+        {% else %}
+            <div></div>
+        {% endif %}
+        <button type="submit" form="main-form" class="btn-tracker">{{ btn_txt }}</button>
+    </div>
+</div>

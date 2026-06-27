@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% url 'accounts:login' as login_url %}
+{% include 'partial/form.html' with form_title="Регистрация" btn_txt="Зарегистрироваться" back_url=login_url back_txt="Войти" next=request.GET.next %}
+{% endblock %}
