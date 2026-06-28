@@ -1,7 +1,4 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import get_object_or_404
-
-from tracker_app.models import Project
 
 
 class ProjectMemberMixin(UserPassesTestMixin):

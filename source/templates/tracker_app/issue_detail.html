@@ -22,7 +22,7 @@
         <p class="text-pre">{{ issue.description|default:"Описание не указано" }}</p>
     </div>
     <div class="card-tracker-footer d-flex justify-content-between">
-        <a href="{% url 'issue_list' %}" class="btn-tracker-outline">Назад</a>
+        <a href="{% url 'project_detail' issue.project.pk %}" class="btn-tracker-outline">Назад</a>
         <div>
             <a href="{% url 'issue_update' issue.pk %}" class="btn-tracker me-2">Изменить</a>
             <a href="{% url 'issue_delete' issue.pk %}" class="btn-tracker-danger">Удалить</a>

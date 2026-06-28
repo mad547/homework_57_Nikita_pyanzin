@@ -23,5 +23,3 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = reverse_lazy('project_list')
         return next_url
-
-# Create your views here.
