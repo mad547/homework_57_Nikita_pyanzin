@@ -1,8 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.core.paginator import Paginator
 
@@ -45,51 +44,35 @@ class ProjectDetailView(TemplateView):
         return context
 
 
-class ProjectCreateView(LoginRequiredMixin , FormView):
+class ProjectCreateView(LoginRequiredMixin , CreateView):
     template_name = 'tracker_app/project_create.html'
+    model = Project
     form_class = ProjectForm
     success_url = reverse_lazy('project_list')
 
     def form_valid(self, form):
-        form.save()
+        project = form.save()
+        project.members.add(self.request.user)
         return super().form_valid(form)
 
 
-class ProjectUpdateView(LoginRequiredMixin, FormView):
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'tracker_app/project_update.html'
+    model = Project
     form_class = ProjectForm
+    context_object_name = 'project'
 
-    def dispatch(self, request, *args, **kwargs):
-        self.project = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
+def get_success_url(request):
+    return reverse_lazy('project_detail', kwargs={'pk': self.object.pk})
 
-    def get_object(self):
-        return get_object_or_404(Project, pk=self.kwargs.get('pk'))
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'tracker_app/project_confirm_delete.html'
+    model = Project
+    context_object_name = 'project'
+    success_url = reverse_lazy('project_list')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['project'] = self.project
-        return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.project
-        return kwargs
-
-    def form_valid(self, form):
-        project = form.save()
-        return redirect('project_detail', pk=project.pk)
-
-
-class ProjectDeleteView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
-        return redirect('project_detail', pk=project.pk)
-
-    def post(self, request, *args, **kwargs):
-        project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
-        project.delete()
-        return redirect('project_list')
+        return self.delete(request, *args, **kwargs) if False else super().get(request, *args, **kwargs)
 
 
 class ProjectIssueCreateView(LoginRequiredMixin, FormView):

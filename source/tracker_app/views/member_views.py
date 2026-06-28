@@ -1,0 +1,33 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, get_object_or_404, render
+from django.views import View
+
+
+from tracker_app.models import Project
+
+class ProjectMembersView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        project = get_object_or_404(Project, pk=pk)
+        users = get_user_model().objects.exclude(pk__in=project.members.all())
+        return render(request, 'tracker_app/project_members.html', {
+            'project': project,
+            'users': users
+        })
+
+
+class ProjectMemberAddView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        project = get_object_or_404(Project, pk=pk)
+        user_pk = request.POST.get('user_pk')
+        user = get_object_or_404(get_user_model(), pk=user_pk)
+        project.members.add(user)
+        return redirect('project_members', pk=project.pk)
+
+
+class ProjectMemberRemoveView(LoginRequiredMixin, View):
+    def post(self, request, pk, user_pk):
+        project = get_object_or_404(Project, pk=pk)
+        user = get_object_or_404(get_user_model(), pk=user_pk)
+        project.members.remove(user)
+        return redirect('project_members', pk=project.pk)

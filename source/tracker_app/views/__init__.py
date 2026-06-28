@@ -14,6 +14,12 @@ from tracker_app.views.project_views import (
     ProjectIssueCreateView,
 )
 
+from tracker_app.views.member_views import (
+    ProjectMembersView,
+    ProjectMemberAddView,
+    ProjectMemberRemoveView,
+)
+
 __all__ = [
     'IssueListView',
     'IssueDetailView',
@@ -25,4 +31,7 @@ __all__ = [
     'ProjectUpdateView',
     'ProjectDeleteView',
     'ProjectIssueCreateView',
+    'ProjectMembersView',
+    'ProjectMemberAddView',
+    'ProjectMemberRemoveView',
 ]

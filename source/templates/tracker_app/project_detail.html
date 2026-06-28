@@ -2,70 +2,89 @@
 
 {% block content %}
 <div class="card-tracker my-4">
-    <div class="card-tracker-header">{{ project.name }}</div>
-    <div class="p-4">
-        <p><strong>Дата начала:</strong> {{ project.start_date|date:'d.m.Y' }}</p>
-        <p><strong>Дата окончания:</strong> {{ project.end_date|date:'d.m.Y'|default:'—' }}</p>
-        <hr>
-        <p><strong>Описание:</strong></p>
-        <p class="text-pre">{{ project.description|default:"Описание не указано" }}</p>
-    </div>
-    <div class="card-tracker-footer d-flex justify-content-between">
-        <a href="{% url 'project_list' %}" class="btn-tracker-outline">Назад</a>
-        <div>
-            <a href="{% url 'project_update' project.pk %}" class="btn-tracker me-2">Изменить</a>
-            <a class="btn-tracker-danger" data-bs-toggle="modal"
-               data-bs-target="#project-{{ project.pk }}-Modal">Удалить</a>
-        </div>
-    </div>
+   <div class="card-tracker-header">{{ project.name }}</div>
+   <div class="p-4">
+       <p><strong>Дата начала:</strong> {{ project.start_date|date:'d.m.Y' }}</p>
+       <p><strong>Дата окончания:</strong> {{ project.end_date|date:'d.m.Y'|default:'—' }}</p>
+       <hr>
+       <p><strong>Описание:</strong></p>
+       <p class="text-pre">{{ project.description|default:"Описание не указано" }}</p>
+   </div>
+   <div class="card-tracker-footer d-flex justify-content-between">
+       <a href="{% url 'project_list' %}" class="btn-tracker-outline">Назад</a>
+       <div>
+           <a href="{% url 'project_update' project.pk %}" class="btn-tracker me-2">Изменить</a>
+           <a class="btn-tracker-danger" data-bs-toggle="modal"
+              data-bs-target="#project-{{ project.pk }}-Modal">Удалить</a>
+       </div>
+   </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3 mt-4">
+   <h3 class="title-tracker mb-0">Участники проекта</h3>
+   {% if request.user.is_authenticated %}
+       <a href="{% url 'project_members' project.pk %}" class="btn-tracker-outline">Управление</a>
+   {% endif %}
+</div>
+
+<div class="card-tracker mb-4">
+   <div class="p-3">
+       {% if project.members.all %}
+           {% for member in project.members.all %}
+               <span class="badge-type me-1">{{ member.username }}</span>
+           {% endfor %}
+       {% else %}
+           <span class="text-muted">Участников нет</span>
+       {% endif %}
+   </div>
 </div>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="title-tracker mb-0">Задачи проекта</h3>
-    <a href="{% url 'project_issue_create' project.pk %}" class="btn-tracker">+ Добавить задачу</a>
+   <h3 class="title-tracker mb-0">Задачи проекта</h3>
+   <a href="{% url 'project_issue_create' project.pk %}" class="btn-tracker">+ Добавить задачу</a>
 </div>
 
 <div class="card-tracker">
-    <table class="table-tracker mb-0">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Описание</th>
-                <th>Тип</th>
-                <th>Статус</th>
-                <th>Создано</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for issue in issues %}
-            <tr class="row-hover">
-                <td>{{ issue.pk }}</td>
-                <td>
-                    <a href="{% url 'issue_detail' issue.pk %}" class="text-decoration-none">
-                        {{ issue.summary }}
-                    </a>
-                </td>
-                <td>
-                    {% for t in issue.issue_type.all %}
-                        <span class="badge-type">{{ t }}</span>
-                    {% empty %}—
-                    {% endfor %}
-                </td>
-                <td><span class="badge-status">{{ issue.status }}</span></td>
-                <td class="text-muted small">{{ issue.created_at|date:'d.m.Y H:i' }}</td>
-                <td>
-                    <a href="{% url 'issue_update' issue.pk %}" class="btn-tracker-outline me-1">Изменить</a>
-                    <a href="{% url 'issue_delete' issue.pk %}" class="btn-tracker-danger">Удалить</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6" class="text-muted text-center py-3">Задач пока нет</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+   <table class="table-tracker mb-0">
+       <thead>
+           <tr>
+               <th>#</th>
+               <th>Описание</th>
+               <th>Тип</th>
+               <th>Статус</th>
+               <th>Создано</th>
+               <th>Действия</th>
+           </tr>
+       </thead>
+       <tbody>
+           {% for issue in issues %}
+           <tr class="row-hover">
+               <td>{{ issue.pk }}</td>
+               <td>
+                   <a href="{% url 'issue_detail' issue.pk %}" class="text-decoration-none">
+                       {{ issue.summary }}
+                   </a>
+               </td>
+               <td>
+                   {% for t in issue.issue_type.all %}
+                       <span class="badge-type">{{ t }}</span>
+                   {% empty %}—
+                   {% endfor %}
+               </td>
+               <td><span class="badge-status">{{ issue.status }}</span></td>
+               <td class="text-muted small">{{ issue.created_at|date:'d.m.Y H:i' }}</td>
+               <td>
+                   <a href="{% url 'issue_update' issue.pk %}" class="btn-tracker-outline me-1">Изменить</a>
+                   <a href="{% url 'issue_delete' issue.pk %}" class="btn-tracker-danger">Удалить</a>
+               </td>
+           </tr>
+           {% empty %}
+           <tr>
+               <td colspan="6" class="text-muted text-center py-3">Задач пока нет</td>
+           </tr>
+           {% endfor %}
+       </tbody>
+   </table>
 </div>
 
 {% include 'partial/project_delete_modal.html' with project=project %}

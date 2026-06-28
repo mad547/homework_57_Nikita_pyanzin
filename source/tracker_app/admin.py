@@ -12,6 +12,7 @@ class IssueAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'start_date', 'end_date',]
     search_fields = ['name', 'description']
+    filter_horizontal = ['members']
 
 admin.site.register(Type)
 admin.site.register(Status)

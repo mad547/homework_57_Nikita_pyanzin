@@ -2,7 +2,7 @@ from django.urls import path
 from tracker_app.views import (
     IssueListView, IssueDetailView, IssueUpdateView, IssueDeleteView,
     ProjectListView, ProjectDetailView, ProjectCreateView, ProjectUpdateView, ProjectDeleteView,
-    ProjectIssueCreateView,
+    ProjectIssueCreateView, ProjectMembersView, ProjectMemberAddView, ProjectMemberRemoveView
 )
 
 
@@ -13,6 +13,9 @@ urlpatterns = [
     path('projects/<int:pk>/update/', ProjectUpdateView.as_view(), name='project_update'),
     path('projects/<int:pk>/delete/', ProjectDeleteView.as_view(), name='project_delete'),
     path('projects/<int:project_pk>/issues/create/', ProjectIssueCreateView.as_view(), name='project_issue_create'),
+    path('projects/<int:pk>/members/', ProjectMembersView.as_view(), name='project_members'),
+    path('projects/<int:pk>/members/add/', ProjectMemberAddView.as_view(), name='project_member_add'),
+    path('projects/<int:pk>/members/<int:user_pk>/remove/', ProjectMemberRemoveView.as_view(), name='project_member_remove'),
 
     path('issues/', IssueListView.as_view(), name='issue_list'),
     path('issues/<int:pk>/', IssueDetailView.as_view(), name='issue_detail'),

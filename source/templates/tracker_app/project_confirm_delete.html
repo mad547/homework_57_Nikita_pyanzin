@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card-tracker delete-card my-4">
+    <div class="card-tracker-header text-center">Удаление проекта</div>
+    <div class="p-4 text-center">
+        <p class="fs-5">Вы уверены что хотите удалить проект?</p>
+        <p class="fw-bold fs-4">{{ project.name }}</p>
+    </div>
+    <div class="card-tracker-footer d-flex justify-content-between">
+        <a href="{% url 'project_detail' project.pk %}" class="btn-tracker-outline">Отмена</a>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-tracker-danger">Удалить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
