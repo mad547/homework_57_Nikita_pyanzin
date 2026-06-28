@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, DetailView, UpdateView, DeleteView
 
@@ -6,7 +6,6 @@ from tracker_app.models import Issue
 from tracker_app.forms import IssueForm
 
 
-# Create your views here.
 class IssueListView(TemplateView):
     template_name = 'tracker_app/issue_list.html'
 
@@ -24,13 +23,19 @@ class IssueDetailView(DetailView):
         return Issue.objects.filter(is_deleted=False)
 
 
-class IssueUpdateView(LoginRequiredMixin, UpdateView):
+class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'tracker_app/issue_update.html'
     form_class = IssueForm
     context_object_name = 'issue'
 
     def get_queryset(self):
         return Issue.objects.filter(is_deleted=False)
+
+    def test_func(self):
+        issue = self.get_object()
+        user = self.request.user
+        in_project = issue.project.members.filter(pk=user.pk).exists()
+        return in_project and user.has_perm('tracker_app.change_issue')
 
     def form_valid(self, form):
         issue = form.save(commit=False)
@@ -42,13 +47,19 @@ class IssueUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('issue_detail', kwargs={'pk': self.object.pk})
 
 
-class IssueDeleteView(LoginRequiredMixin, DeleteView):
+class IssueDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'tracker_app/issue_delete.html'
     context_object_name = 'issue'
     success_url = reverse_lazy('project_list')
 
     def get_queryset(self):
         return Issue.objects.filter(is_deleted=False)
+
+    def test_func(self):
+        issue = self.get_object()
+        user = self.request.user
+        in_project = issue.project.members.filter(pk=user.pk).exists()
+        return in_project and user.has_perm('tracker_app.delete_issue')
 
     def form_valid(self, form):
         issue = self.get_object()

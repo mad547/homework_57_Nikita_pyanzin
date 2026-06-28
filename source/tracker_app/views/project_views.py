@@ -1,7 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, get_object_or_404, render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, FormView
 from django.db.models import Q
 from django.core.paginator import Paginator
 
@@ -44,11 +44,14 @@ class ProjectDetailView(TemplateView):
         return context
 
 
-class ProjectCreateView(LoginRequiredMixin , CreateView):
+class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     template_name = 'tracker_app/project_create.html'
     model = Project
     form_class = ProjectForm
     success_url = reverse_lazy('project_list')
+
+    def test_func(self):
+        return self.request.user.has_perm('tracker_app.add_project')
 
     def form_valid(self, form):
         project = form.save()
@@ -56,32 +59,46 @@ class ProjectCreateView(LoginRequiredMixin , CreateView):
         return super().form_valid(form)
 
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'tracker_app/project_update.html'
     model = Project
     form_class = ProjectForm
     context_object_name = 'project'
 
-def get_success_url(request):
-    return reverse_lazy('project_detail', kwargs={'pk': self.object.pk})
+    def test_func(self):
+        project = self.get_object()
+        user = self.request.user
+        in_project = project.members.filter(pk=user.pk).exists()
+        return in_project and user.has_perm('tracker_app.change_project')
 
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+    def get_success_url(self):
+        return reverse_lazy('project_detail', kwargs={'pk': self.object.pk})
+
+
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'tracker_app/project_confirm_delete.html'
     model = Project
     context_object_name = 'project'
     success_url = reverse_lazy('project_list')
 
-    def get(self, request, *args, **kwargs):
-        return self.delete(request, *args, **kwargs) if False else super().get(request, *args, **kwargs)
+    def test_func(self):
+        project = self.get_object()
+        user = self.request.user
+        in_project = project.members.filter(pk=user.pk).exists()
+        return in_project and user.has_perm('tracker_app.delete_project')
 
 
-class ProjectIssueCreateView(LoginRequiredMixin, FormView):
+class ProjectIssueCreateView(LoginRequiredMixin, UserPassesTestMixin, FormView):
     template_name = 'tracker_app/issue_create.html'
     form_class = IssueInProjectForm
 
     def dispatch(self, request, *args, **kwargs):
         self.project = get_object_or_404(Project, pk=self.kwargs.get('project_pk'))
         return super().dispatch(request, *args, **kwargs)
+
+    def test_func(self):
+        in_project = self.project.members.filter(pk=self.request.user.pk).exists()
+        return in_project and self.request.user.has_perm('tracker_app.add_issue')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
